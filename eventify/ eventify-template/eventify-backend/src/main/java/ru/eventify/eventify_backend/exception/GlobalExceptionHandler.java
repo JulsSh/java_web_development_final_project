@@ -29,10 +29,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex){
+
         String fields = ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .collect(Collectors.joining(", "));
-
+        log.warn("Validation failed: {}", fields);
         ErrorResponse body = new ErrorResponse(
                 "VALIDATION_FAILED",
                 fields,
@@ -42,6 +43,7 @@ public class GlobalExceptionHandler {
     }
 @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAny(Exception ex){
+    log.error("Unexpected error", ex);
         ErrorResponse body =new ErrorResponse(
                 "INTERNAL_ERROR",
                 "An unexpected error occurred",
