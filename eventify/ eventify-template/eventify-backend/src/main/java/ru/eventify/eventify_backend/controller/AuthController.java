@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.eventify.eventify_backend.dto.request.LoginRequest;
 import ru.eventify.eventify_backend.dto.request.RegisterRequest;
+import ru.eventify.eventify_backend.dto.response.LoginResponse;
 import ru.eventify.eventify_backend.dto.response.UserResponse;
 import ru.eventify.eventify_backend.entity.Role;
 import ru.eventify.eventify_backend.entity.User;
+import ru.eventify.eventify_backend.service.AuthService;
 import ru.eventify.eventify_backend.service.UserService;
 @Slf4j
 @RestController
@@ -21,6 +24,8 @@ import ru.eventify.eventify_backend.service.UserService;
 
 public class AuthController {
    private final UserService userService;
+   private final AuthService authService;
+
    @PostMapping("/register")
    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest registerRequest){
   log.info("Registration attempt for email: {}", registerRequest.email());
@@ -29,4 +34,13 @@ public class AuthController {
 return ResponseEntity.status(HttpStatus.CREATED).body(response);
    }
 
+   @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest){
+       log.info("Login attempt for email: {}", loginRequest.email());
+
+      String token= authService.login(loginRequest.email(), loginRequest.password());
+      LoginResponse loginResponse = new LoginResponse(token);
+      return ResponseEntity.ok(loginResponse);
+
+   }
 }
