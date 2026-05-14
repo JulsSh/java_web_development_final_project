@@ -17,18 +17,17 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class EventController {
     private final EventService eventService;
-
     @GetMapping("/{id}")
     public ResponseEntity<EventResponse> getEventById(@PathVariable Long id) {
+        log.info("Get event by  id: {}", id);
         EventResponse body = eventService.getEventById(id);
         return ResponseEntity.ok(body);
     }
 
     @GetMapping
     public ResponseEntity<Page<EventResponse>> getAllEvents(@RequestParam(required = false) Instant from,
-                                                            @RequestParam(required = false) Instant to,
-                                                            Pageable pageable) {
-        log.info("All available events: ");
+                                                            @RequestParam(required = false) Instant to, Pageable pageable) {
+        log.info("Get all available events: ");
         Page<EventResponse> events = eventService.getAllEvents(from, to, pageable);
         return ResponseEntity.ok(events);
     }
