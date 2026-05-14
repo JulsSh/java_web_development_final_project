@@ -8,9 +8,11 @@ import jakarta.validation.constraints.Size;
 import java.time.Instant;
 
 public record EventCreateRequest(
-        @NotBlank @Size(max = 100) String title,
+        @NotBlank @Size(max = 255) String title,
         String description,
         String coverUrl,
         @NotNull Instant dateTime,
-        @Min(1) int totalTickets) {
+        @NotNull @Min(1) Integer totalTickets
+      //  @NotNull @Min(0) Integer availableTickets
+) {
 }

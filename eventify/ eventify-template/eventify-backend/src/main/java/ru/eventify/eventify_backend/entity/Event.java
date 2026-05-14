@@ -6,7 +6,8 @@ import lombok.*;
 import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter@Setter
+@Getter
+@Setter
 @ToString
 @Entity
 @Table(name="events")
@@ -15,18 +16,22 @@ public class Event {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(length = 255, nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(length = 2048)
+    @Column(length = 2048, name="cover_url")
     private String coverUrl;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name="date_time")
     private Instant dateTime;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name="total_tickets")
     private Integer totalTickets;
+
+    @Column(nullable = false, name="available_tickets")
+    private Integer availableTickets;
+
 }

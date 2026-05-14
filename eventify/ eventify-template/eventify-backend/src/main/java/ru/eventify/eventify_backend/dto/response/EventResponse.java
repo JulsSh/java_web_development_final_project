@@ -6,9 +6,10 @@ public record EventResponse(
         Long id,
         String title,
         String description,
+        String coverUrl,
         Instant dateTime,
-        int totalTickets,
-        int availableTickets,
-        String coverUrl
+        Integer totalTickets,
+        Integer availableTickets
+
 ) {
 }
