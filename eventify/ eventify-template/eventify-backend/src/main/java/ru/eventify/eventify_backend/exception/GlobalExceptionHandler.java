@@ -63,6 +63,41 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
 }
+@ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<ErrorResponse> eventNotFoundException(EventNotFoundException ex){
+        log.warn("Event not found {}", ex.getMessage());
+        ErrorResponse body= new ErrorResponse(
+                "EVENT_NOT_FOUND",
+                ex.getMessage(),
+                Instant.now()
 
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+}
+@ExceptionHandler(NotEnoughTicketsException.class)
+    public ResponseEntity<ErrorResponse> notEnoughAvailableSlotsException(NotEnoughTicketsException ex){
+        log.warn("Not enough tickets available {} ", ex.getMessage());
+        ErrorResponse body= new ErrorResponse(
+                "NOT_ENOUGH_TICKETS",
+                ex.getMessage(),
+                Instant.now()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                body
+        );
+}
+
+
+@ExceptionHandler(BookingNotFoundException.class)
+    public ResponseEntity<ErrorResponse> bookingNotFound(BookingNotFoundException ex){
+        log.warn("Booking not found: {}", ex.getMessage());
+        ErrorResponse body = new ErrorResponse(
+                "BOOKING_NOT_FOUND",
+                ex.getMessage(),
+                Instant.now()
+        );
+     return ResponseEntity
+             .status(HttpStatus.NOT_FOUND).body(body);
+}
 
 }

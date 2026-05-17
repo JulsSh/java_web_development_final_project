@@ -20,6 +20,20 @@ import java.time.Instant;
 public class EventService {
     private final EventRepository eventRepository;
 
+    private EventResponse toResponse(Event event) {
+
+        return new EventResponse(
+                event.getId(),
+                event.getTitle(),
+                event.getDescription(),
+                event.getCoverUrl(),
+                event.getDateTime(),
+                event.getTotalTickets(),
+                event.getAvailableTickets()
+
+        );
+    }
+
     public EventResponse createEvent(EventCreateRequest eventCreateRequest) {
         Event event = new Event();
         event.setTitle(eventCreateRequest.title());
@@ -27,22 +41,21 @@ public class EventService {
         event.setCoverUrl(eventCreateRequest.coverUrl());
         event.setDateTime(eventCreateRequest.dateTime());
         event.setTotalTickets(eventCreateRequest.totalTickets());
+        event.setAvailableTickets(eventCreateRequest.totalTickets());
         Event savedEvent = eventRepository.save(event);
         log.info("Event created successfully: {}", savedEvent.getTitle());
 
-        return new EventResponse(savedEvent.getId(), savedEvent.getTitle(), savedEvent.getDescription(),
-                savedEvent.getDateTime(), savedEvent.getTotalTickets(), savedEvent.getTotalTickets(), savedEvent.getCoverUrl());
+        return toResponse(savedEvent);
     }
 
     public EventResponse getEventById(Long id) {
 
-        Event savedEvent = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(String.valueOf(id)));
-        return new EventResponse(savedEvent.getId(), savedEvent.getTitle(), savedEvent.getDescription(),
-                savedEvent.getDateTime(), savedEvent.getTotalTickets(), savedEvent.getTotalTickets(), savedEvent.getCoverUrl());
+        Event savedEvent = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(id));
+        return toResponse(savedEvent);
     }
 
     public EventResponse updateEvent(EventUpdateRequest request, Long id) {
-        Event savedEvent = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(String.valueOf(id)));
+        Event savedEvent = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(id));
         if (request.title() != null) {
             savedEvent.setTitle(request.title());
         }
@@ -60,24 +73,19 @@ public class EventService {
         }
 
         eventRepository.save(savedEvent);
-        return new EventResponse(savedEvent.getId(), savedEvent.getTitle(), savedEvent.getDescription(),
-                savedEvent.getDateTime(), savedEvent.getTotalTickets(), savedEvent.getTotalTickets(), savedEvent.getCoverUrl());
+        return toResponse(savedEvent);
     }
 
     public void deleteEvent(Long id) {
-        Event saved = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(String.valueOf(id)));
+        Event saved = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(id));
         eventRepository.deleteById(id);
     }
 
     public Page<EventResponse> getAllEvents(Instant from, Instant to, Pageable pageable) {
         if (from == null && to == null) {
-            return eventRepository.findAll(pageable).map(event -> new EventResponse(event.getId(), event.getTitle(),
-                    event.getDescription(), event.getDateTime(), event.getTotalTickets(), event.getTotalTickets(),
-                    event.getCoverUrl()));
+            return eventRepository.findAll(pageable).map(this::toResponse);
         } else {
-            return eventRepository.findByDateTimeBetween(from, to, pageable).map(event -> new EventResponse(event.getId(), event.getTitle(),
-                    event.getDescription(), event.getDateTime(), event.getTotalTickets(), event.getTotalTickets(),
-                    event.getCoverUrl()));
+            return eventRepository.findByDateTimeBetween(from, to, pageable).map(this::toResponse);
         }
     }
 }

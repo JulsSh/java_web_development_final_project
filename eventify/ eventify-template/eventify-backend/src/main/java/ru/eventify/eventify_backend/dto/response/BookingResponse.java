@@ -9,7 +9,7 @@ public record BookingResponse(
         Integer ticketCount,
         Instant createdAt,
         Instant expiryTime,
-        Boolean confirmed,
+        boolean confirmed,
         String timezone
 ) {
 }

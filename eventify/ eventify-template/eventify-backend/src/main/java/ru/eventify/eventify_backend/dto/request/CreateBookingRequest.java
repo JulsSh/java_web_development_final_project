@@ -1,7 +1,10 @@
 package ru.eventify.eventify_backend.dto.request;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public record CreateBookingRequest(
-        Long eventId,
-        Integer ticketCount
+        @NotNull Long eventId,
+        @NotNull @Min(1) Integer ticketCount
 ) {
 }
