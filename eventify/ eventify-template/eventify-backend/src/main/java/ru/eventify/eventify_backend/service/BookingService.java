@@ -77,5 +77,19 @@ public class BookingService {
     }
 
 
-    public BookingResponse confirmBooking
+    public void confirmBooking(Long id){
+        Booking booking = bookingRepository.findById(id).orElseThrow(()-> new BookingNotFoundException(id));
+        booking.setConfirmed(true);
+            bookingRepository.save(booking);
+    }
+
+    @Transactional
+    public void deleteBooking(Long id){
+
+        Booking booking = bookingRepository.findById(id).orElseThrow(()-> new BookingNotFoundException(id));
+        Event event  = booking.getEvent();
+        event.setAvailableTickets(event.getAvailableTickets() +booking.getTicketCount());
+        eventRepository.save(event);
+        bookingRepository.delete(booking);
+    }
 }
