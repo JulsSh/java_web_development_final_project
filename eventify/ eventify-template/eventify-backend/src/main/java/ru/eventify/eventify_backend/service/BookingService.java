@@ -2,9 +2,12 @@ package ru.eventify.eventify_backend.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.eventify.eventify_backend.dto.request.CreateBookingRequest;
+import ru.eventify.eventify_backend.dto.request.UpdateBookingRequest;
 import ru.eventify.eventify_backend.dto.response.BookingResponse;
 import ru.eventify.eventify_backend.dto.response.EventResponse;
 import ru.eventify.eventify_backend.entity.Booking;
@@ -72,7 +75,8 @@ public class BookingService {
        Booking savedBooking =  bookingRepository.save(booking);
 
          return new BookingResponse(savedBooking.getId(), toEventResponse(savedEvent), savedBooking.getCustomerEmail(),
-                  savedBooking.getTicketCount(), savedBooking.getCreatedAt(), savedBooking.getExpiryTime(), savedBooking.isConfirmed(), savedBooking.getTimezone());
+                  savedBooking.getTicketCount(), savedBooking.getCreatedAt(), savedBooking.getExpiryTime(),
+                 savedBooking.isConfirmed(), savedBooking.getTimezone());
 
     }
 
@@ -92,4 +96,34 @@ public class BookingService {
         eventRepository.save(event);
         bookingRepository.delete(booking);
     }
+
+public Page<BookingResponse> getAllBookings(Pageable pageable){
+
+    Page<Booking> savedBooking = bookingRepository.findAll(pageable);
+    return savedBooking.map(booking ->
+                    new BookingResponse(
+                            booking.getId(), toEventResponse(booking.getEvent()),
+                            booking.getCustomerEmail(), booking.getTicketCount(), booking.getCreatedAt(),
+                            booking.getExpiryTime(), booking.isConfirmed(), booking.getTimezone())
+            );
+}
+@Transactional
+    public BookingResponse updateBooking(Long id, UpdateBookingRequest  request){
+    Booking savedBooking= bookingRepository.findById(id).orElseThrow(()-> new BookingNotFoundException(id));
+
+    Event event = savedBooking.getEvent();
+
+ int diff = request.ticketCount() -savedBooking.getTicketCount();
+    if (diff > 0 && event.getAvailableTickets() < diff){
+        throw new NotEnoughTicketsException(diff, event.getAvailableTickets());
+
+    }
+    savedBooking.setTicketCount(request.ticketCount());
+    bookingRepository.save(savedBooking);
+    event.setAvailableTickets(event.getAvailableTickets() - diff);
+
+    Event savedEvent = eventRepository.save(event);
+   return new BookingResponse(savedBooking.getId(), toEventResponse(savedEvent), savedBooking.getCustomerEmail(),
+           savedBooking.getTicketCount(), savedBooking.getCreatedAt(), savedBooking.getExpiryTime(), savedBooking.isConfirmed(), savedBooking.getTimezone());
+}
 }
