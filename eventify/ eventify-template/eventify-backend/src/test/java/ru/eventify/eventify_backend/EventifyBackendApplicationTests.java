@@ -38,7 +38,7 @@ class EventifyBackendApplicationTests {
 	@InjectMocks
 	private EventService eventService;
 
-	// Вспомогательный метод — собирает готовый Event для тестов (чтобы не повторять).
+
 	private Event sampleEvent() {
 		Event event = new Event();
 		event.setId(1L);
@@ -51,7 +51,7 @@ class EventifyBackendApplicationTests {
 		return event;
 	}
 
-	// --- createEvent ---------------------------------------------------------
+
 
 	@Test
 	void createEvent_savesEventAndSetsAvailableTicketsEqualToTotal() {
