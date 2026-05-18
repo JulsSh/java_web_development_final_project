@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-notification-preferences
+      author: Jouleea
+      comment: create table notification preferences in the database
+      changes:
+        - createTable:
+            tableName: notification_preferences
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_email
+                  type: VARCHAR(254)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: notify_new_events
+                  type: BOOLEAN
+              - column:
+                  name: notify_upcoming
+                  type: BOOLEAN
+              - column:
+                  name: notify_before_hours
+                  type: INTEGER

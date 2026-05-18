@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/002-create-events.yaml
   - include:
       file: db/changelog/003-create-bookings.yaml
+  - include:
+      file: db/changelog/004-create-notification-preferences.yaml
