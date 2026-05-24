@@ -7,31 +7,31 @@ servers:
     description: Generated server url
 tags:
   - name: Auth
-    description: Аутентификация и регистрация
+    description: Authentication and registration
   - name: Bookings
-    description: Операции с бронированиями
+    description: Booking operations
   - name: User
-    description: Настройки уведомлений пользователя
+    description: User notification settings
   - name: Admin
-    description: Административные функции
+    description: Administrative functions
   - name: Events
-    description: Управление мероприятиями
+    description: Event management
 paths:
   /user/notifications:
     get:
       tags:
         - User
-      summary: Получить настройки уведомлений
+      summary: Get notification settings
       operationId: userNotificationsGet
       responses:
         '200':
-          description: Настройки уведомлений
+          description: Notification settings
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotificationPreferences'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -39,7 +39,7 @@ paths:
     put:
       tags:
         - User
-      summary: Обновить настройки уведомлений
+      summary: Update notification settings
       operationId: userNotificationsPut
       requestBody:
         content:
@@ -48,19 +48,19 @@ paths:
               $ref: '#/components/schemas/NotificationPreferences'
       responses:
         '200':
-          description: Настройки обновлены
+          description: Settings updated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotificationPreferences'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Настройки уведомлений не найдены
+          description: Notification settings not found
           content:
             application/json:
               schema:
@@ -68,13 +68,13 @@ paths:
     delete:
       tags:
         - User
-      summary: Отменить уведомления
+      summary: Cancel notifications
       operationId: userNotificationsDelete
       responses:
         '204':
-          description: Настройки удалены
+          description: Settings deleted
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -83,12 +83,12 @@ paths:
     get:
       tags:
         - Bookings
-      summary: Получить бронирование по ID
+      summary: Get booking by ID
       operationId: bookingsIdGet
       parameters:
         - name: id
           in: path
-          description: Идентификатор бронирования
+          description: Booking identifier
           required: true
           schema:
             type: integer
@@ -101,19 +101,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/BookingResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Бронирование не найдено
+          description: Booking not found
           content:
             application/json:
               schema:
@@ -123,12 +123,12 @@ paths:
     put:
       tags:
         - Bookings
-      summary: Обновить бронирование
+      summary: Update booking
       operationId: bookingsIdPut
       parameters:
         - name: id
           in: path
-          description: Идентификатор бронирования
+          description: Booking identifier
           required: true
           schema:
             type: integer
@@ -146,25 +146,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/BookingResponse'
         '400':
-          description: Ошибка валидации
+          description: Validation error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Бронирование не найдено
+          description: Booking not found
           content:
             application/json:
               schema:
@@ -174,33 +174,33 @@ paths:
     delete:
       tags:
         - Bookings
-      summary: Отменить бронирование
+      summary: Cancel booking
       operationId: bookingsIdDelete
       parameters:
         - name: id
           in: path
-          description: Идентификатор бронирования
+          description: Booking identifier
           required: true
           schema:
             type: integer
             format: int64
       responses:
         '204':
-          description: Бронирование отменено
+          description: Booking cancelled
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Бронирование не найдено
+          description: Booking not found
           content:
             application/json:
               schema:
@@ -211,12 +211,12 @@ paths:
     put:
       tags:
         - Admin
-      summary: Обновить мероприятие (Admin)
+      summary: Update event (Admin)
       operationId: eventsIdPut
       parameters:
         - name: id
           in: path
-          description: Идентификатор мероприятия
+          description: Event identifier
           required: true
           schema:
             type: integer
@@ -234,31 +234,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/EventResponse'
         '400':
-          description: Неверный запрос
+          description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Ресурс не найден
+          description: Resource not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '409':
-          description: Конфликт
+          description: Conflict
           content:
             application/json:
               schema:
@@ -268,45 +268,45 @@ paths:
     delete:
       tags:
         - Admin
-      summary: Удалить мероприятие (Admin)
+      summary: Delete event (Admin)
       operationId: eventsIdDelete
       parameters:
         - name: id
           in: path
-          description: Идентификатор мероприятия
+          description: Event identifier
           required: true
           schema:
             type: integer
             format: int64
       responses:
         '204':
-          description: Мероприятие удалено
+          description: Event deleted
         '400':
-          description: Неверный запрос
+          description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Ресурс не найден
+          description: Resource not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '409':
-          description: Конфликт
+          description: Conflict
           content:
             application/json:
               schema:
@@ -317,33 +317,33 @@ paths:
     put:
       tags:
         - Admin
-      summary: Подтвердить бронирование (Admin)
+      summary: Confirm booking (Admin)
       operationId: adminBookingsIdConfirm
       parameters:
         - name: id
           in: path
-          description: Идентификатор бронирования
+          description: Booking identifier
           required: true
           schema:
             type: integer
             format: int64
       responses:
         '204':
-          description: Бронирование подтверждено
+          description: Booking confirmed
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Бронирование не найдено
+          description: Booking not found
           content:
             application/json:
               schema:
@@ -354,17 +354,17 @@ paths:
     post:
       tags:
         - User
-      summary: Инициировать привязку Telegram
+      summary: Initiate Telegram linking
       operationId: userTelegramLinkPost
       responses:
         '200':
-          description: Код для /start команды в боте
+          description: Code for /start command in the bot
           content:
             text/plain:
               schema:
                 type: string
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -373,7 +373,7 @@ paths:
     get:
       tags:
         - Bookings
-      summary: Получить свои бронирования
+      summary: Get own bookings
       operationId: bookingsGet
       responses:
         '200':
@@ -385,7 +385,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/BookingResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -395,7 +395,7 @@ paths:
     post:
       tags:
         - Bookings
-      summary: Создать бронирование
+      summary: Create booking
       operationId: bookingsPost
       requestBody:
         content:
@@ -410,25 +410,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/BookingResponse'
         '400':
-          description: Ошибка валидации
+          description: Validation error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Мероприятие не найдено
+          description: Event not found
           content:
             application/json:
               schema:
@@ -439,7 +439,7 @@ paths:
     post:
       tags:
         - Auth
-      summary: Регистрация пользователя
+      summary: Register user
       operationId: authRegisterPost
       requestBody:
         content:
@@ -449,13 +449,13 @@ paths:
         required: true
       responses:
         '201':
-          description: Пользователь зарегистрирован
+          description: User registered
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthResponse'
         '404':
-          description: Ошибка валидации логина или пароля
+          description: Login or password validation error
           content:
             application/json:
               schema:
@@ -464,7 +464,7 @@ paths:
     post:
       tags:
         - Auth
-      summary: Вход в систему
+      summary: Log in
       operationId: authLoginPost
       requestBody:
         content:
@@ -474,13 +474,13 @@ paths:
         required: true
       responses:
         '200':
-          description: Успешный вход
+          description: Login successful
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthResponse'
         '401':
-          description: Неверное имя пользователя или пароль
+          description: Invalid username or password
           content:
             application/json:
               schema:
@@ -489,7 +489,7 @@ paths:
     post:
       tags:
         - Admin
-      summary: Создать мероприятие (Admin)
+      summary: Create event (Admin)
       operationId: eventsPost
       requestBody:
         content:
@@ -505,25 +505,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/EventResponse'
         '400':
-          description: Неверный запрос
+          description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '409':
-          description: Конфликт
+          description: Conflict
           content:
             application/json:
               schema:
@@ -534,44 +534,44 @@ paths:
     get:
       tags:
         - Events
-      summary: Получить список мероприятий
+      summary: Get event list
       operationId: eventsGet
       parameters:
         - name: from
           in: query
-          description: Фильтр от даты
+          description: Filter from date
           required: false
           schema:
             type: string
             format: date-time
         - name: to
           in: query
-          description: Фильтр до даты
+          description: Filter to date
           required: false
           schema:
             type: string
             format: date-time
         - name: pageable
           in: query
-          description: Параметры пагинации и сортировки
+          description: Pagination and sorting parameters
           required: true
           schema:
             $ref: '#/components/schemas/Pageable'
       responses:
         '200':
-          description: Список мероприятий
+          description: List of events
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PageableEventResponse'
         '400':
-          description: Неверный запрос
+          description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -580,31 +580,31 @@ paths:
     get:
       tags:
         - Events
-      summary: Получить мероприятие по ID
+      summary: Get event by ID
       operationId: eventsIdGet
       parameters:
         - name: id
           in: path
-          description: Идентификатор мероприятия
+          description: Event identifier
           required: true
           schema:
             type: integer
             format: int64
       responses:
         '200':
-          description: Мероприятие
+          description: Event
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventResponse'
         '400':
-          description: Неверный запрос
+          description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Ресурс не найден
+          description: Resource not found
           content:
             application/json:
               schema:
@@ -613,43 +613,43 @@ paths:
     get:
       tags:
         - Admin
-      summary: Получить все бронирования (Admin)
+      summary: Get all bookings (Admin)
       operationId: adminBookingsGet
       parameters:
         - name: eventId
           in: query
-          description: Идентификатор мероприятия
+          description: Event identifier
           required: false
           schema:
             type: integer
             format: int64
         - name: unconfirmedOnly
           in: query
-          description: Только неподтвержденные
+          description: Unconfirmed only
           required: false
           schema:
             type: boolean
         - name: pageable
           in: query
-          description: Параметры пагинации и сортировки
+          description: Pagination and sorting parameters
           required: true
           schema:
             $ref: '#/components/schemas/Pageable'
       responses:
         '200':
-          description: Страница с бронированиями
+          description: Page of bookings
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PageableBookingResponse'
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
@@ -660,33 +660,33 @@ paths:
     delete:
       tags:
         - Admin
-      summary: Удалить бронирование (Admin)
+      summary: Delete booking (Admin)
       operationId: adminBookingsIdDelete
       parameters:
         - name: id
           in: path
-          description: Идентификатор бронирования
+          description: Booking identifier
           required: true
           schema:
             type: integer
             format: int64
       responses:
         '204':
-          description: Бронирование удалено
+          description: Booking deleted
         '401':
-          description: Не авторизован
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Доступ запрещен
+          description: Access denied
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Бронирование не найдено
+          description: Booking not found
           content:
             application/json:
               schema:
@@ -700,41 +700,41 @@ components:
       properties:
         notifyNewEvents:
           type: boolean
-          description: Получать уведомления когда добавляются новые мероприятия
+          description: Receive notifications when new events are added
         notifyUpcoming:
           type: boolean
-          description: 'Получать напоминания о мероприятиях, забронированных пользователем'
+          description: 'Receive reminders for events booked by the user'
         notifyBeforeHours:
           type: integer
           format: int32
           description: >-
-            Количество часов до начала мероприятия, за которое будет отправлено
-            уведомление
+            Number of hours before the event start when the notification
+            will be sent
           maximum: 24
           minimum: 1
     ErrorDetail:
       type: object
-      description: Сведения о произошедшей ошибке
+      description: Details about the error that occurred
       properties:
         field:
           type: string
-          description: 'Поле, которое содержит ошибку'
+          description: 'The field that contains the error'
           example: email
         message:
           type: string
-          description: Описание ошибки
-          example: Должен быть валидным email адресом
+          description: Error description
+          example: Must be a valid email address
     ErrorResponse:
       type: object
-      description: Сообщение о произошедшей ошибке
+      description: Error message
       properties:
         code:
           type: string
-          description: Машинно-читаемый код ошибки
+          description: Machine-readable error code
           example: VALIDATION_FAILED
         level:
           type: string
-          description: Уровень серьезности
+          description: Severity level
           enum:
             - ErrorResponse.LevelEnum.INFO(value=info)
             - ErrorResponse.LevelEnum.WARNING(value=warning)
@@ -742,11 +742,11 @@ components:
           example: error
         message:
           type: string
-          description: Человеко-читаемое сообщение
-          example: Некоторые поля заполнены неверно
+          description: Human-readable message
+          example: Some fields are filled in incorrectly
         details:
           type: array
-          description: Детали ошибки (опционально)
+          description: Error details (optional)
           items:
             $ref: '#/components/schemas/ErrorDetail'
       required:
@@ -755,141 +755,141 @@ components:
         - message
     BookingResponse:
       type: object
-      description: Бронирование
+      description: Booking
       properties:
         id:
           type: integer
           format: int64
-          description: Идентификатор бронирования
+          description: Booking identifier
         event:
           $ref: '#/components/schemas/EventResponse'
-          description: Мероприятие
+          description: Event
         customerEmail:
           type: string
-          description: Электронная почта пользователя
+          description: User email address
         ticketCount:
           type: integer
           format: int32
-          description: Количество билетов
+          description: Number of tickets
         createdAt:
           type: string
           format: date-time
-          description: Дата создания бронирования
+          description: Booking creation date
         expiryTime:
           type: string
           format: date-time
-          description: 'Дата, до которой бронирование должно быть подтверждено'
+          description: 'Date by which the booking must be confirmed'
         confirmed:
           type: boolean
-          description: Признак подтвержденного броонирования
+          description: Indicates whether the booking is confirmed
         timezone:
           type: string
-          description: Таймзона
+          description: Timezone
       required:
         - event
         - id
     EventResponse:
       type: object
-      description: Сведения о мероприятии
+      description: Event details
       properties:
         id:
           type: integer
           format: int64
-          description: Идентификатор мероприятия
+          description: Event identifier
         title:
           type: string
-          description: Название мероприятия
+          description: Event title
         description:
           type: string
-          description: Описание мероприятия
+          description: Event description
         dateTime:
           type: string
           format: date-time
-          description: Дата и время начала мероприятия
+          description: Event start date and time
         totalTickets:
           type: integer
           format: int32
-          description: Общее число мест на мероприятие
+          description: Total number of seats at the event
         availableTickets:
           type: integer
           format: int32
-          description: 'Число мест, доступных к бронированию'
+          description: 'Number of seats available for booking'
         coverUrl:
           type: string
-          description: URL обложки мероприятия
+          description: Event cover URL
           example: 'https://example.com/image.jpg'
     UpdateBookingRequest:
       type: object
-      description: Запрос на изменение бронирования
+      description: Request to update a booking
       properties:
         ticketCount:
           type: integer
           format: int32
-          description: Количество билетов
+          description: Number of tickets
           minimum: 1
     EventUpdateRequest:
       type: object
-      description: Запрос на изменение сведений о мероприятии
+      description: Request to update event details
       properties:
         title:
           type: string
-          description: Название мероприятия
+          description: Event title
           maxLength: 100
           minLength: 0
         description:
           type: string
-          description: Описание мероприятия
+          description: Event description
         dateTime:
           type: string
           format: date-time
-          description: Дата и время начала мероприятия
+          description: Event start date and time
         totalTickets:
           type: integer
           format: int32
-          description: Общее число мест на мероприятие
+          description: Total number of seats at the event
           minimum: 1
         coverUrl:
           type: string
-          description: URL обложки
+          description: Cover URL
     CreateBookingRequest:
       type: object
-      description: Запрос на создание бронирования
+      description: Request to create a booking
       properties:
         eventId:
           type: integer
           format: int64
-          description: Идентификатор мероприятия
+          description: Event identifier
         ticketCount:
           type: integer
           format: int32
-          description: Количество билетов
+          description: Number of tickets
           minimum: 1
       required:
         - eventId
         - ticketCount
     AuthResponse:
       type: object
-      description: Ответ на запрос авторизации
+      description: Authorization response
       properties:
         token:
           type: string
-          description: Токен авторизации
+          description: Authorization token
         role:
           type: string
-          description: Роль пользователя
+          description: User role
           enum:
             - USER
             - ADMIN
     RegisterRequest:
       type: object
-      description: Запрос на создание нового пользователя
+      description: Request to create a new user
       properties:
         email:
           type: string
-          description: Электронная почта пользователя
+          description: User email address
         password:
           type: string
-          description: Пароль
+          description: Password
           maxLength: 2147483647
           minLength: 8
       required:
@@ -897,40 +897,40 @@ components:
         - password
     LoginRequest:
       type: object
-      description: Запрос на авторизацию пользователя
+      description: User login request
       properties:
         email:
           type: string
-          description: Электронная почта пользователя
+          description: User email address
         password:
           type: string
-          description: Пароль
+          description: Password
       required:
         - email
         - password
     EventCreateRequest:
       type: object
-      description: Запрос на создание мероприятия
+      description: Request to create an event
       properties:
         title:
           type: string
-          description: Название мероприятия
+          description: Event title
           maxLength: 100
           minLength: 0
         description:
           type: string
-          description: Описание мероприятия
+          description: Event description
         coverUrl:
           type: string
-          description: URL обложки мероприятия
+          description: Event cover URL
         dateTime:
           type: string
           format: date-time
-          description: Дата и время мероприятия
+          description: Event date and time
         totalTickets:
           type: integer
           format: int32
-          description: Общее число мест на мероприятие
+          description: Total number of seats at the event
           minimum: 1
       required:
         - dateTime
@@ -938,7 +938,7 @@ components:
         - totalTickets
     PageableEventResponse:
       type: object
-      description: Страница с мероприятиями
+      description: Page of events
       properties:
         content:
           type: array
@@ -1013,7 +1013,7 @@ components:
             type: string
     PageableBookingResponse:
       type: object
-      description: Страница с бронированиями
+      description: Page of bookings
       properties:
         content:
           type: array

@@ -1,32 +1,32 @@
-# Используем официальный Node.js образ для сборки
+# Use official Node.js image for building
 FROM node:18-alpine AS builder
 
-# Устанавливаем рабочую директорию
+# Set working directory
 WORKDIR /app
 
-# Копируем файлы зависимостей
+# Copy dependency files
 COPY package*.json ./
 
-# Устанавливаем зависимости
+# Install dependencies
 RUN npm ci --only=production
 
-# Копируем исходный код
+# Copy source code
 COPY . .
 
-# Собираем приложение
+# Build the application
 RUN npm run build
 
-# Используем nginx для раздачи статических файлов
+# Use nginx to serve static files
 FROM nginx:alpine
 
-# Копируем собранные файлы из builder stage
+# Copy built files from builder stage
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# Копируем конфигурацию nginx
+# Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Открываем порт 80
+# Expose port 80
 EXPOSE 80
 
-# Запускаем nginx
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"] 

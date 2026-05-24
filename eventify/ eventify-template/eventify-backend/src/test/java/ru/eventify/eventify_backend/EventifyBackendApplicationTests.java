@@ -108,9 +108,9 @@ class EventifyBackendApplicationTests {
 
 		EventResponse response = eventService.updateEvent(request, 1L);
 
-		assertThat(response.title()).isEqualTo("New Title");          // изменилось
-		assertThat(response.description()).isEqualTo("A conference"); // не тронуто
-		assertThat(response.totalTickets()).isEqualTo(100);           // не тронуто
+		assertThat(response.title()).isEqualTo("New Title");          // changed
+		assertThat(response.description()).isEqualTo("A conference"); // unchanged
+		assertThat(response.totalTickets()).isEqualTo(100);           // unchanged
 	}
 
 	@Test

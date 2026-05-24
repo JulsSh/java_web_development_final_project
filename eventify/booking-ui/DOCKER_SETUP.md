@@ -1,27 +1,28 @@
-# 🐳 Docker настройка Event Booking Frontend
+# 🐳 Docker Setup for Event Booking Frontend
 
-## Что было добавлено
+## What was added
 
-### 1. Docker файлы
-- **`Dockerfile`** - Многоэтапная сборка с Node.js и Nginx
-- **`docker-compose.yml`** - Конфигурация с профилями для разных режимов
-- **`nginx.conf`** - Оптимизированная конфигурация Nginx для React SPA
-- **`backend-stub.conf`** - Заглушка для демонстрации работы с бэкендом
-- **`.dockerignore`** - Исключения для оптимизации сборки
+### 1. Docker files
+- **`Dockerfile`** - Multi-stage build with Node.js and Nginx
+- **`docker-compose.yml`** - Configuration with profiles for different modes
+- **`nginx.conf`** - Optimized Nginx configuration for React SPA
+- **`backend-stub.conf`** - Stub for demonstrating backend integration
+- **`.dockerignore`** - Exclusions to optimize the build
 
-### 2. Скрипты запуска
+### 2. Launch scripts
+
 - **Unix (macOS/Linux):**
-  - `scripts/start-docker-mocks.sh` - Запуск с моками
-  - `scripts/start-docker-backend.sh` - Запуск с бэкендом
-  - `scripts/stop-docker.sh` - Остановка контейнеров
+  - `scripts/start-docker-mocks.sh` - Start with mocks
+  - `scripts/start-docker-backend.sh` - Start with backend
+  - `scripts/stop-docker.sh` - Stop containers
 
 - **Windows:**
-  - `scripts/start-docker-mocks.bat` - Запуск с моками
-  - `scripts/start-docker-backend.bat` - Запуск с бэкендом
-  - `scripts/stop-docker.bat` - Остановка контейнеров
+  - `scripts/start-docker-mocks.bat` - Start with mocks
+  - `scripts/start-docker-backend.bat` - Start with backend
+  - `scripts/stop-docker.bat` - Stop containers
 
-### 3. NPM скрипты
-Добавлены в `package.json`:
+### 3. NPM scripts
+Added to `package.json`:
 ```json
 {
   "docker:mocks": "./scripts/start-docker-mocks.sh",
@@ -32,84 +33,84 @@
 }
 ```
 
-### 4. Конфигурационные файлы
-- **`env.example`** - Пример переменных окружения
-- **`QUICKSTART.md`** - Краткая инструкция по запуску
+### 4. Configuration files
+- **`env.example`** - Example environment variables
+- **`QUICKSTART.md`** - Quick start guide
 
-## Режимы работы
+## Modes of operation
 
-### Профиль `mocks`
-- Запускает только фронтенд с моками
-- Идеально для демонстрации и разработки
-- Порт: 3000
+### Profile `mocks`
+- Runs only the frontend with mocks
+- Ideal for demos and development
+- Port: 3000
 
-### Профиль `backend`
-- Запускает фронтенд + заглушку бэкенда
-- Для тестирования интеграции с API
-- Порты: 3000 (фронтенд), 8080 (бэкенд)
+### Profile `backend`
+- Runs frontend + backend stub
+- For testing API integration
+- Ports: 3000 (frontend), 8080 (backend)
 
-## Команды для запуска
+## Launch commands
 
-### Быстрый старт
+### Quick start
 ```bash
-# С моками
+# With mocks
 npm run docker:mocks
 
-# С бэкендом
+# With backend
 npm run docker:backend
 
-# Остановка
+# Stop
 npm run docker:stop
 ```
 
-### Продвинутые команды
+### Advanced commands
 ```bash
-# Сборка образов
+# Build images
 npm run docker:build
 
-# Просмотр логов
+# View logs
 npm run docker:logs
 
-# Прямые команды Docker Compose
+# Direct Docker Compose commands
 docker-compose --profile mocks up --build
 docker-compose --profile backend up --build
 docker-compose down
 ```
 
-## Особенности реализации
+## Implementation details
 
-### Многоэтапная сборка
-1. **Builder stage** - Node.js для сборки React приложения
-2. **Production stage** - Nginx для раздачи статических файлов
+### Multi-stage build
+1. **Builder stage** - Node.js for building the React application
+2. **Production stage** - Nginx for serving static files
 
-### Оптимизации
-- Gzip сжатие
-- Кэширование статических файлов
+### Optimizations
+- Gzip compression
+- Static file caching
 - Security headers
 - Health check endpoints
 
-### Переменные окружения
-- `REACT_APP_USE_MOCKS` - Переключение между моками и реальным API
-- `REACT_APP_API_URL` - URL бэкенда
+### Environment variables
+- `REACT_APP_USE_MOCKS` - Toggle between mocks and real API
+- `REACT_APP_API_URL` - Backend URL
 
-## Тестирование
+## Testing
 
-Все компоненты протестированы:
-- ✅ Сборка Docker образа
-- ✅ Запуск с моками
-- ✅ NPM скрипты
-- ✅ Остановка контейнеров
-- ✅ Доступность приложения на порту 3000
+All components tested:
+- ✅ Docker image build
+- ✅ Start with mocks
+- ✅ NPM scripts
+- ✅ Stop containers
+- ✅ Application accessible on port 3000
 
-## Совместимость
+## Compatibility
 
-- **macOS**: ✅ Протестировано
-- **Linux**: ✅ Ожидается совместимость
-- **Windows**: ✅ Скрипты .bat созданы
+- **macOS**: ✅ Tested
+- **Linux**: ✅ Expected compatibility
+- **Windows**: ✅ .bat scripts created
 
-## Следующие шаги
+## Next steps
 
-1. Интеграция с реальным бэкендом
-2. Настройка CI/CD
-3. Оптимизация размера образа
-4. Добавление мониторинга 
+1. Integration with real backend
+2. CI/CD setup
+3. Image size optimization
+4. Add monitoring

@@ -1,205 +1,205 @@
 # Event Booking Frontend
 
-Фронтенд для системы бронирования мероприятий, разработанный на React с TypeScript.
+Frontend for the event booking system, built with React and TypeScript.
 
-## Описание проекта
+## Project Description
 
-Система позволяет:
-- Регистрироваться и входить в систему
-- Просматривать список мероприятий с пагинацией
-- Бронировать билеты на мероприятия
-- Управлять своими бронированиями
-- Настраивать уведомления
-- Администраторам: управлять мероприятиями и бронированиями
+The system allows you to:
+- Register and log in
+- Browse the event list with pagination
+- Book tickets for events
+- Manage your bookings
+- Configure notifications
+- Admins: manage events and bookings
 
-## Технологический стек
+## Tech Stack
 
-- **React 18** с TypeScript
-- **React Router** для навигации
-- **React Hook Form** с Yup для валидации форм
-- **Axios** для HTTP-запросов
-- **Tailwind CSS** для стилизации
-- **Lucide React** для иконок
-- **React Hot Toast** для уведомлений
+- **React 18** with TypeScript
+- **React Router** for navigation
+- **React Hook Form** with Yup for form validation
+- **Axios** for HTTP requests
+- **Tailwind CSS** for styling
+- **Lucide React** for icons
+- **React Hot Toast** for notifications
 
-## Быстрый старт
+## Quick Start
 
-У вас есть 4 варианта запуска приложения:
+You have 4 options to run the application:
 
-### 🐳 Вариант 1: Docker с моками (демонстрация)
+### 🐳 Option 1: Docker with mocks (demo)
 
-**Предварительные требования:**
-- [Docker](https://docs.docker.com/get-docker/) 
+**Prerequisites:**
+- [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-**Запуск:**
+**Run:**
 ```bash
 # macOS/Linux
 npm run docker:mocks
 
 # Windows
 npm run docker:mocks
-# или запустите scripts/start-docker-mocks.bat
+# or run scripts/start-docker-mocks.bat
 ```
 
-**Что происходит:**
-- Фронтенд запускается в Docker контейнере
-- Используются встроенные моки (демо-данные)
-- Приложение доступно на http://localhost:3000
+**What happens:**
+- Frontend starts in a Docker container
+- Uses built-in mocks (demo data)
+- Application available at http://localhost:3000
 
-### 🐳 Вариант 2: Docker с реальным бэкендом
+### 🐳 Option 2: Docker with real backend
 
-**Предварительные требования:**
-- [Docker](https://docs.docker.com/get-docker/) 
+**Prerequisites:**
+- [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- **Ваш бэкенд должен быть запущен на порту 8080**
+- **Your backend must be running on port 8080**
 
-**Запуск:**
+**Run:**
 ```bash
 # macOS/Linux
 npm run docker:backend
 
 # Windows
 npm run docker:backend
-# или запустите scripts/start-docker-backend.bat
+# or run scripts/start-docker-backend.bat
 ```
 
-**Что происходит:**
-- Фронтенд запускается в Docker контейнере
-- Подключается к вашему бэкенду на http://localhost:8080
-- Приложение доступно на http://localhost:3000
-- **Порт 8080 должен быть свободен для вашего бэкенда**
+**What happens:**
+- Frontend starts in a Docker container
+- Connects to your backend at http://localhost:8080
+- Application available at http://localhost:3000
+- **Port 8080 must be free for your backend**
 
-#### Управление Docker контейнерами
+#### Managing Docker containers
 
-**С помощью npm скриптов:**
+**Using npm scripts:**
 ```bash
-# Остановить контейнеры
+# Stop containers
 npm run docker:stop
 
-# Просмотр логов
+# View logs
 npm run docker:logs
 
-# Пересборка образов
+# Rebuild images
 npm run docker:build
 ```
 
-**С помощью команд Docker Compose:**
+**Using Docker Compose commands:**
 ```bash
-# Остановить контейнеры
+# Stop containers
 docker-compose down
 
-# Просмотр логов
+# View logs
 docker-compose logs -f
 
-# Пересборка образов
+# Rebuild images
 docker-compose build --no-cache
 ```
 
-#### Прямые команды Docker Compose
+#### Direct Docker Compose commands
 
 ```bash
-# Вариант 1: Docker с моками
+# Option 1: Docker with mocks
 docker-compose --profile docker-mocks up --build
 
-# Вариант 2: Docker с реальным бэкендом
+# Option 2: Docker with real backend
 docker-compose --profile docker-backend up --build
 
-# Остановка
+# Stop
 docker-compose down
 ```
 
-### 💻 Вариант 3: Локальный запуск с моками
+### 💻 Option 3: Local run with mocks
 
-**Предварительные требования:**
-- Node.js 16+ 
-- npm или yarn
+**Prerequisites:**
+- Node.js 16+
+- npm or yarn
 
-**Установка зависимостей:**
+**Install dependencies:**
 ```bash
 npm install
 ```
 
-**Запуск:**
+**Run:**
 ```bash
 npm run start:mocks
 ```
 
-**Что происходит:**
-- Фронтенд запускается локально через npm
-- Используются встроенные моки (демо-данные)
-- Приложение доступно на http://localhost:3000
+**What happens:**
+- Frontend starts locally via npm
+- Uses built-in mocks (demo data)
+- Application available at http://localhost:3000
 
-### 💻 Вариант 4: Локальный запуск с реальным бэкендом
+### 💻 Option 4: Local run with real backend
 
-**Предварительные требования:**
-- Node.js 16+ 
-- npm или yarn
-- **Ваш бэкенд должен быть запущен на порту 8080**
+**Prerequisites:**
+- Node.js 16+
+- npm or yarn
+- **Your backend must be running on port 8080**
 
-**Установка зависимостей:**
+**Install dependencies:**
 ```bash
 npm install
 ```
 
-**Запуск:**
+**Run:**
 ```bash
 npm run start:backend
 ```
 
-**Что происходит:**
-- Фронтенд запускается локально через npm
-- Подключается к вашему бэкенду на http://localhost:8080
-- Приложение доступно на http://localhost:3000
-- **Порт 8080 должен быть свободен для вашего бэкенда**
+**What happens:**
+- Frontend starts locally via npm
+- Connects to your backend at http://localhost:8080
+- Application available at http://localhost:3000
+- **Port 8080 must be free for your backend**
 
-### 🔧 Альтернативный способ (через .env файл)
+### 🔧 Alternative method (via .env file)
 
-Для вариантов 3 и 4 можно также использовать `.env` файл:
+For options 3 and 4 you can also use a `.env` file:
 
 ```bash
-# Скопируйте пример конфигурации
+# Copy example configuration
 cp env.example .env
 ```
 
-Затем отредактируйте `.env` в зависимости от ваших потребностей:
+Then edit `.env` based on your needs:
 
 ```env
-# Для моков (Вариант 3)
+# For mocks (Option 3)
 REACT_APP_USE_MOCKS=true
 
-# Для реального бэкенда (Вариант 4)
+# For real backend (Option 4)
 REACT_APP_API_URL=http://localhost:8080
 REACT_APP_USE_MOCKS=false
 ```
 
-И запустите:
+And run:
 ```bash
 npm start
 ```
 
-**Примечание:** Использование `.env` файла менее удобно, чем npm скрипты, так как требует ручного редактирования файла при переключении между режимами.
+**Note:** Using a `.env` file is less convenient than npm scripts, as it requires manual editing when switching between modes.
 
-### 🔑 Тестовые аккаунты для демонстрации
+### 🔑 Test accounts for demo
 
-**Обычный пользователь:**
+**Regular user:**
 - Email: `user@example.com`
-- Пароль: `password123`
+- Password: `password123`
 
-**Администратор:**
+**Admin:**
 - Email: `admin@example.com`
-- Пароль: `password123`
+- Password: `password123`
 
-## Инструкции по запуску для разных ОС
+## OS-specific instructions
 
 ### Windows
 
-1. **Установка Node.js:**
-   - Скачайте Node.js с официального сайта: https://nodejs.org/
-   - Установите, следуя инструкциям установщика
-   - Проверьте установку: `node --version` и `npm --version`
+1. **Install Node.js:**
+   - Download Node.js from the official site: https://nodejs.org/
+   - Install following the installer instructions
+   - Verify installation: `node --version` and `npm --version`
 
-2. **Клонирование и запуск:**
+2. **Clone and run:**
    ```cmd
    git clone <repository-url>
    cd event-booking-frontend
@@ -207,20 +207,20 @@ npm start
    npm start
    ```
 
-3. **Возможные проблемы:**
-   - Если возникают ошибки с правами доступа, запустите командную строку от имени администратора
-   - При проблемах с npm кэшем: `npm cache clean --force`
+3. **Possible issues:**
+   - If you get permission errors, run the command prompt as Administrator
+   - For npm cache issues: `npm cache clean --force`
 
 ### macOS
 
-1. **Установка Node.js:**
-   - Рекомендуется использовать Homebrew:
+1. **Install Node.js:**
+   - Recommended via Homebrew:
      ```bash
      brew install node
      ```
-   - Или скачайте с официального сайта: https://nodejs.org/
+   - Or download from the official site: https://nodejs.org/
 
-2. **Клонирование и запуск:**
+2. **Clone and run:**
    ```bash
    git clone <repository-url>
    cd event-booking-frontend
@@ -228,211 +228,211 @@ npm start
    npm start
    ```
 
-3. **Возможные проблемы:**
-   - При проблемах с правами доступа: `sudo npm install`
-   - Если порт 3000 занят, npm автоматически предложит другой порт
+3. **Possible issues:**
+   - For permission issues: `sudo npm install`
+   - If port 3000 is busy, npm will automatically suggest another port
 
-## Структура проекта
+## Project Structure
 
 ```
-├── src/                    # Исходный код приложения
-│   ├── components/         # React компоненты
-│   │   ├── AuthForm.tsx    # Форма аутентификации
-│   │   ├── Navigation.tsx  # Навигация
-│   │   ├── EventList.tsx   # Список мероприятий
-│   │   ├── EventDetail.tsx # Детали мероприятия
-│   │   ├── BookingList.tsx # Список бронирований
-│   │   ├── AdminBookingList.tsx # Админ: управление бронированиями
-│   │   └── NotificationSettings.tsx # Настройки уведомлений
-│   ├── contexts/           # React контексты
-│   │   └── AuthContext.tsx # Контекст аутентификации
-│   ├── services/           # API сервисы
-│   │   ├── api.ts         # Основной API сервис
-│   │   └── mockApi.ts     # Моки для демонстрации
-│   ├── types/              # TypeScript типы
-│   │   └── index.ts       # Определения типов
-│   ├── App.tsx            # Главный компонент
-│   └── index.tsx          # Точка входа
-├── scripts/               # Скрипты для запуска
-│   ├── start-docker-mocks.sh    # Запуск Docker с моками (Unix)
-│   ├── start-docker-backend.sh  # Запуск Docker с бэкендом (Unix)
-│   ├── stop-docker.sh           # Остановка Docker (Unix)
-│   ├── start-docker-mocks.bat   # Запуск Docker с моками (Windows)
-│   ├── start-docker-backend.bat # Запуск Docker с бэкендом (Windows)
-│   └── stop-docker.bat          # Остановка Docker (Windows)
-├── Dockerfile             # Конфигурация Docker образа
-├── docker-compose.yml     # Конфигурация Docker Compose
-├── nginx.conf             # Конфигурация Nginx
-├── backend-stub.conf      # Заглушка для бэкенда
-├── .dockerignore          # Исключения для Docker
-├── env.example            # Пример переменных окружения
-├── QUICKSTART.md          # Краткая инструкция по запуску
-└── README.md              # Документация проекта
+├── src/                    # Application source code
+│   ├── components/         # React components
+│   │   ├── AuthForm.tsx    # Authentication form
+│   │   ├── Navigation.tsx  # Navigation
+│   │   ├── EventList.tsx   # Event list
+│   │   ├── EventDetail.tsx # Event details
+│   │   ├── BookingList.tsx # Booking list
+│   │   ├── AdminBookingList.tsx # Admin: manage bookings
+│   │   └── NotificationSettings.tsx # Notification settings
+│   ├── contexts/           # React contexts
+│   │   └── AuthContext.tsx # Auth context
+│   ├── services/           # API services
+│   │   ├── api.ts         # Main API service
+│   │   └── mockApi.ts     # Mocks for demo
+│   ├── types/              # TypeScript types
+│   │   └── index.ts       # Type definitions
+│   ├── App.tsx            # Root component
+│   └── index.tsx          # Entry point
+├── scripts/               # Launch scripts
+│   ├── start-docker-mocks.sh    # Start Docker with mocks (Unix)
+│   ├── start-docker-backend.sh  # Start Docker with backend (Unix)
+│   ├── stop-docker.sh           # Stop Docker (Unix)
+│   ├── start-docker-mocks.bat   # Start Docker with mocks (Windows)
+│   ├── start-docker-backend.bat # Start Docker with backend (Windows)
+│   └── stop-docker.bat          # Stop Docker (Windows)
+├── Dockerfile             # Docker image configuration
+├── docker-compose.yml     # Docker Compose configuration
+├── nginx.conf             # Nginx configuration
+├── backend-stub.conf      # Backend stub
+├── .dockerignore          # Docker exclusions
+├── env.example            # Example environment variables
+├── QUICKSTART.md          # Quick start guide
+└── README.md              # Project documentation
 ```
 
 ## API Endpoints
 
-### Аутентификация
-- `POST /auth/login` - Вход в систему
-- `POST /auth/register` - Регистрация
+### Authentication
+- `POST /auth/login` - Log in
+- `POST /auth/register` - Register
 
-### Мероприятия
-- `GET /events` - Список мероприятий
-- `GET /events/{id}` - Детали мероприятия
-- `POST /admin/events` - Создание мероприятия (Admin)
-- `PUT /admin/events/{id}` - Обновление мероприятия (Admin)
-- `DELETE /admin/events/{id}` - Удаление мероприятия (Admin)
+### Events
+- `GET /events` - List events
+- `GET /events/{id}` - Event details
+- `POST /admin/events` - Create event (Admin)
+- `PUT /admin/events/{id}` - Update event (Admin)
+- `DELETE /admin/events/{id}` - Delete event (Admin)
 
-### Бронирования
-- `GET /bookings` - Мои бронирования
-- `POST /bookings` - Создание бронирования
-- `DELETE /bookings/{id}` - Отмена бронирования
-- `GET /admin/bookings` - Все бронирования (Admin)
-- `PUT /admin/bookings/{id}/confirm` - Подтверждение бронирования (Admin)
-- `DELETE /admin/bookings/{id}` - Удаление бронирования (Admin)
+### Bookings
+- `GET /bookings` - My bookings
+- `POST /bookings` - Create booking
+- `DELETE /bookings/{id}` - Cancel booking
+- `GET /admin/bookings` - All bookings (Admin)
+- `PUT /admin/bookings/{id}/confirm` - Confirm booking (Admin)
+- `DELETE /admin/bookings/{id}` - Delete booking (Admin)
 
-### Уведомления
-- `GET /user/notifications` - Настройки уведомлений
-- `PUT /user/notifications` - Обновление настроек
-- `DELETE /user/notifications` - Сброс настроек
-- `POST /user/telegram/link` - Привязка Telegram
+### Notifications
+- `GET /user/notifications` - Notification settings
+- `PUT /user/notifications` - Update settings
+- `DELETE /user/notifications` - Reset settings
+- `POST /user/telegram/link` - Link Telegram
 
-## Конфигурация
+## Configuration
 
-### Переменные окружения
+### Environment variables
 
-| Переменная | Описание | По умолчанию | Примечание |
-|------------|----------|--------------|------------|
-| `REACT_APP_API_URL` | URL вашего бэкенда | `http://localhost:8080` | Для Docker используйте `http://host.docker.internal:8080` |
-| `REACT_APP_USE_MOCKS` | Использовать встроенные моки | `true` | `true` = демо-данные, `false` = реальный API |
+| Variable | Description | Default | Note |
+|----------|-------------|---------|------|
+| `REACT_APP_API_URL` | Your backend URL | `http://localhost:8080` | For Docker use `http://host.docker.internal:8080` |
+| `REACT_APP_USE_MOCKS` | Use built-in mocks | `true` | `true` = demo data, `false` = real API |
 
-### Docker конфигурация
+### Docker configuration
 
-#### Профили Docker Compose
+#### Docker Compose profiles
 
-- **`docker-mocks`** - Вариант 1: Фронтенд в Docker с моками
-- **`docker-backend`** - Вариант 2: Фронтенд в Docker с реальным бэкендом
+- **`docker-mocks`** - Option 1: Frontend in Docker with mocks
+- **`docker-backend`** - Option 2: Frontend in Docker with real backend
 
-#### Настройка для продакшена
+#### Production setup
 
-Для продакшена создайте файл `.env.production`:
+For production, create a `.env.production` file:
 
 ```env
 REACT_APP_API_URL=https://your-backend-domain.com
 REACT_APP_USE_MOCKS=false
 ```
 
-И соберите образ:
+And build the image:
 
 ```bash
 docker build -t event-booking-frontend:latest .
 ```
 
-#### Кастомизация портов
+#### Port customization
 
-Для изменения портов отредактируйте `docker-compose.yml`:
+To change ports, edit `docker-compose.yml`:
 
 ```yaml
 services:
   frontend-mocks:
     ports:
-      - "YOUR_PORT:80"  # Измените YOUR_PORT на нужный порт
+      - "YOUR_PORT:80"  # Change YOUR_PORT to the desired port
 ```
 
-#### Специфика для Docker
+#### Docker specifics
 
-При запуске в Docker контейнере используйте `host.docker.internal` для доступа к бэкенду на хост-машине:
+When running inside a Docker container, use `host.docker.internal` to access the backend on the host machine:
 
 ```env
 REACT_APP_API_URL=http://host.docker.internal:8080
 ```
 
-## Сборка для продакшена
+## Production Build
 
 ```bash
 npm run build
 ```
 
-Собранные файлы будут в папке `build/`.
+Built files will be in the `build/` folder.
 
-## Тестирование
+## Testing
 
 ```bash
 npm test
 ```
 
-## NPM скрипты
+## NPM Scripts
 
-### Основные команды
-- `npm start` - Запуск в режиме разработки (с настройками из .env)
-- `npm run build` - Сборка для продакшена
-- `npm run test` - Запуск тестов
-- `npm run eject` - Извлечение конфигурации (необратимо)
+### Main commands
+- `npm start` - Start in development mode (with .env settings)
+- `npm run build` - Build for production
+- `npm run test` - Run tests
+- `npm run eject` - Eject configuration (irreversible)
 
-### Docker команды
-- `npm run docker:mocks` - Вариант 1: Docker с моками
-- `npm run docker:backend` - Вариант 2: Docker с реальным бэкендом
-- `npm run docker:stop` - Остановка Docker контейнеров
-- `npm run docker:build` - Сборка Docker образов
-- `npm run docker:logs` - Просмотр логов контейнеров
+### Docker commands
+- `npm run docker:mocks` - Option 1: Docker with mocks
+- `npm run docker:backend` - Option 2: Docker with real backend
+- `npm run docker:stop` - Stop Docker containers
+- `npm run docker:build` - Build Docker images
+- `npm run docker:logs` - View container logs
 
-### Локальные команды
-- `npm run start:mocks` - Вариант 3: Локальный запуск с моками
-- `npm run start:backend` - Вариант 4: Локальный запуск с реальным бэкендом
+### Local commands
+- `npm run start:mocks` - Option 3: Local run with mocks
+- `npm run start:backend` - Option 4: Local run with real backend
 
-### Дополнительные команды
-- `npm run test:coverage` - Тесты с покрытием
+### Additional commands
+- `npm run test:coverage` - Tests with coverage
 
-## Особенности демонстрационного режима
+## Demo mode features
 
-При запуске с моками:
-- Все данные хранятся в памяти браузера
-- При перезагрузке страницы данные сбрасываются
-- Имитируются задержки API для реалистичности
-- Доступны предустановленные тестовые аккаунты
+When running with mocks:
+- All data is stored in browser memory
+- Data resets on page reload
+- API delays are simulated for realism
+- Pre-configured test accounts are available
 
-## Поддержка
+## Support
 
-### Устранение неполадок
+### Troubleshooting
 
-#### Для локального запуска:
-1. Проверьте версию Node.js (должна быть 16+)
-2. Удалите `node_modules` и `package-lock.json`, затем выполните `npm install`
-3. Очистите кэш npm: `npm cache clean --force`
-4. Убедитесь, что порт 3000 свободен
+#### For local run:
+1. Check Node.js version (must be 16+)
+2. Delete `node_modules` and `package-lock.json`, then run `npm install`
+3. Clear npm cache: `npm cache clean --force`
+4. Make sure port 3000 is free
 
-#### Для Docker:
-1. **Порт занят**: Измените порт в `docker-compose.yml` или остановите процесс на порту 3000
-2. **Ошибки сборки**: Очистите Docker кэш: `docker system prune -a`
-3. **Проблемы с правами**: Запустите Docker с правами администратора
-4. **Контейнер не запускается**: Проверьте логи: `docker-compose logs frontend-mocks`
+#### For Docker:
+1. **Port busy**: Change the port in `docker-compose.yml` or stop the process on port 3000
+2. **Build errors**: Clear Docker cache: `docker system prune -a`
+3. **Permission issues**: Run Docker as administrator
+4. **Container won't start**: Check logs: `docker-compose logs frontend-mocks`
 
-#### Частые проблемы:
+#### Common issues:
 
-**Docker не установлен:**
-- Windows/macOS: Скачайте Docker Desktop с [официального сайта](https://www.docker.com/products/docker-desktop)
-- Linux: Следуйте [инструкции по установке](https://docs.docker.com/engine/install/)
+**Docker not installed:**
+- Windows/macOS: Download Docker Desktop from the [official site](https://www.docker.com/products/docker-desktop)
+- Linux: Follow the [installation guide](https://docs.docker.com/engine/install/)
 
-**Порт 3000 занят:**
+**Port 3000 busy:**
 ```bash
-# Найти процесс на порту 3000
+# Find the process on port 3000
 lsof -i :3000  # macOS/Linux
 netstat -ano | findstr :3000  # Windows
 
-# Остановить процесс
+# Stop the process
 kill -9 <PID>  # macOS/Linux
 taskkill /PID <PID> /F  # Windows
 ```
 
-**Ошибки сборки Docker:**
+**Docker build errors:**
 ```bash
-# Очистить все Docker ресурсы
+# Clear all Docker resources
 docker system prune -a --volumes
 
-# Пересобрать образ
+# Rebuild image
 docker-compose build --no-cache
 ```
 
-## Лицензия
+## License
 
 MIT

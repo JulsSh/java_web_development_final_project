@@ -1,81 +1,82 @@
 # Eventify
 
-Проект для управления событиями с использованием Spring Boot и PostgreSQL.
+Event management project using Spring Boot and PostgreSQL.
 
-## Стек технологий
+## Tech Stack
 
 - Docker
 - Docker Compose
-- Java 17+ (или выше)
+- Java 17+ (or higher)
 - Gradle
 - Spring Boot 3+
 
-## Начало работы
-### Спецификация OpenAPI
-**Важно!** Для успешной интеграции фронтенда и бэкенда придерживайтесь OpenAPI-спецификации, описанной в файле `api/openapi.yaml` 
+## Getting Started
 
-### Запуск базы данных
-В корне проекта находится файл `docker-compose.yml`, который поможет вам запустить БД PostgreSQL в докер-контейнере (и вам не придется устанавливать сервер БД локально)
-Для запуска используйте следующую команду:
+### OpenAPI Specification
+**Important!** For successful frontend-backend integration, follow the OpenAPI specification described in the `api/openapi.yaml` file.
+
+### Starting the database
+The project root contains a `docker-compose.yml` file that will help you run a PostgreSQL DB in a Docker container (so you don't need to install a DB server locally).
+Use the following command to start it:
 
 ```bash
 docker-compose up -d --force-recreate
 ```
 
-**Важно:** Если вы уже запускали контейнер ранее без init-скрипта, обязательно используйте флаг `--force-recreate` для пересоздания контейнера с новой схемой.
+**Important:** If you have previously run the container without the init script, make sure to use the `--force-recreate` flag to recreate the container with the new schema.
 
-#### Параметры команды:
-- `up -d` - запуск контейнеров в фоновом режиме
-- `--force-recreate` - пересоздание контейнеров при необходимости (перезаписывает существующие)
+#### Command parameters:
+- `up -d` - start containers in background mode
+- `--force-recreate` - recreate containers if needed (overwrites existing ones)
 
-#### Альтернативные команды:
+#### Alternative commands:
 
-**Обычный запуск (без пересоздания):**
+**Normal start (without recreating):**
 ```bash
 docker-compose up -d
 ```
 
-**Запуск с пересозданием и пересборкой:**
+**Start with recreating and rebuilding:**
 ```bash
 docker-compose up -d --force-recreate --build
 ```
 
-После запуска, БД будет доступна локально со следующими параметрами:
+After starting, the DB will be available locally with the following parameters:
 
-- **Хост:** localhost
-- **Порт:** 5432
-- **База данных:** eventify_db
-- **Пользователь:** postgres
-- **Пароль:** postgres
+- **Host:** localhost
+- **Port:** 5432
+- **Database:** eventify_db
+- **User:** postgres
+- **Password:** postgres
 
 
-**Остановка контейнеров:**
+**Stop containers:**
 ```bash
 docker-compose down
 ```
 
-**Остановка с удалением данных:**
+**Stop with data removal:**
 ```bash
 docker-compose down -v
 ```
 
-### Проверка статуса
+### Check status
 
-Для проверки статуса контейнеров:
+To check container status:
 
 ```bash
 docker-compose ps
 ```
 
-Для просмотра логов:
+To view logs:
 
 ```bash
 docker-compose logs postgres
 ```
 
-### Подключение к базе данных
+### Connect to the database
 
-Для подключения к базе данных через psql:
+To connect to the database via psql:
 
 ```bash
 docker exec -it eventify-postgres psql -U postgres -d eventify_db
